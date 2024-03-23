@@ -1,7 +1,34 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./signup.module.css";
-
 const Signup = () => {
+  const [inputs, setInputs] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+  });
+
+  const [err, setErr] = useState(null);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3001/api/auth/register", inputs);
+    } catch (err) {
+      setErr(err.response.data);
+    }
+  };
+
+  console.log(err);
+
   return (
     <div className={styles.login}>
       <div className={styles.card}>
@@ -22,48 +49,73 @@ const Signup = () => {
 
         <div className={styles.right}>
           <h1>Register</h1>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <input
               className={styles.inputs}
               type="text"
               placeholder="First Name"
+              name="firstName"
+              onChange={handleChange}
               required
             />
             <input
               className={styles.inputs}
               type="text"
               placeholder="Last Name"
+              name="lastName"
+              onChange={handleChange}
               required
             />
             <input
               className={styles.inputs}
               type="email"
               placeholder="Email"
+              name="email"
+              onChange={handleChange}
               required
             />
             <input
               className={styles.inputs}
               type="password"
               placeholder="Password"
+              name="password"
+              onChange={handleChange}
               required
             />
             <input
               className={styles.inputs}
               type="password"
               placeholder="Confirm password"
+              name="confirmPassword"
+              onChange={handleChange}
               required
             />
             <div className={styles.radios}>
               <div>
-                <input type="radio" placeholder="client" required />
+                <input
+                  type="radio"
+                  value="client"
+                  name="role"
+                  checked={inputs.role === "client"}
+                  onChange={handleChange}
+                  required
+                />
                 <label htmlFor="radio">As Client</label>
               </div>
               <div>
-                <input type="radio" required />
+                <input
+                  type="radio"
+                  required
+                  value="freelancer"
+                  name="role"
+                  checked={inputs.role === "freelancer"}
+                  onChange={handleChange}
+                />
                 <label htmlFor="radio">As Freelancer</label>
               </div>
             </div>
-            <button>Register</button>
+            {err && err}
+            <button type="submit">Register</button>
           </form>
         </div>
       </div>
