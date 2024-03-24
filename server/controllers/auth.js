@@ -41,15 +41,13 @@ export const login = (req, res) => {
 
   db.query(q, [req.body.email], (err, data) => {
     if (err) return res.status(500).json({ err });
-    if (!data.length)
-      return res.status(401).json({ message: "User not found" });
+    if (!data.length) return res.status(401).json("User not found");
 
     const checkPassword = bcrypt.compareSync(
       req.body.password,
       data[0].password
     );
-    if (!checkPassword)
-      return res.status(401).json({ message: "Wrong password" });
+    if (!checkPassword) return res.status(401).json("Wrong password");
 
     const token = jwt.sign({ id: data[0].id }, process.env.SECRET_KEY);
 

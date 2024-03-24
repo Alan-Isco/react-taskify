@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <h1 className={styles.logo}>Taskify</h1>
         </Link>
-        <menu className={styles.menuItems}>
+        {/* <menu className={styles.menuItems}>
           <li>
             <a href="">Dashboard</a>
           </li>
@@ -26,7 +26,7 @@ const Navbar = () => {
           <li>
             <a href="">Help</a>
           </li>
-        </menu>
+        </menu> */}
         <form className={styles.search}>
           {/* <span className="material-symbols-outlined">search</span> */}
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -42,11 +42,11 @@ const Navbar = () => {
         {/* <span className="material-symbols-outlined">
             {darkMode ? "light_mode" : "dark_mode"}
           </span> */}
-        <i class="fa-regular fa-user"></i>
+        {/* <i class="fa-regular fa-user"></i> */}
         {/* <span className="material-symbols-outlined">person</span> */}
-        <i class="fa-regular fa-envelope"></i>
+        {/* <i class="fa-regular fa-envelope"></i> */}
         {/* <span className="material-symbols-outlined">email</span> */}
-        <i class="fa-regular fa-bell"></i>
+        {/* <i class="fa-regular fa-bell"></i> */}
         {/* <span className="material-symbols-outlined">notifications</span> */}
         <div className={styles.user}>
           <img
