@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import styles from "./signin.module.css";
 
@@ -11,17 +11,24 @@ const Signin = () => {
 
   const [err, setErr] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const { login } = useContext(AuthContext);
+  const { currentUser, login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await login(inputs);
+      navigate(
+        currentUser.role === "client"
+          ? "/users/client/dashboard"
+          : "/users/freelancer/dashboard"
+      );
     } catch (err) {
-      // setErr(err.response.data);
+      setErr(err.response.data);
       console.log(err);
     }
   };
