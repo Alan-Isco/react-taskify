@@ -2,22 +2,66 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 // import Info from "../info/Info";
+import { useMutation, useQuery } from "react-query";
+import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import styles from "./navbar.module.css";
 
 const Navbar = () => {
   const { darkMode, toggle } = useContext(DarkModeContext);
-  const { currentUser } = useContext(AuthContext);
-  const [toggleProfile, setToggleProfile] = useState(false);
-  const [formValues, setFormValues] = useState({
-    phone: "",
-    expert: "",
-    jobType: "",
-    workinghrs: "",
-    avaiability: "",
-    exp: "",
-  });
+
   const [enableForm, setEnableForm] = useState(false);
+  const { currentUser } = useContext(AuthContext);
+  const { isLoading, error, data } = useQuery(["profile"], () =>
+    makeRequest.get("users/profile").then((res) => res.data)
+  );
+
+  console.log(data);
+  const [formValues, setFormValues] = useState(() => {
+    if (!data || Object.keys(data).length === 0) {
+      return {
+        phone: "",
+        expert: "",
+        jobType: "",
+        workinghrs: "",
+        avaiability: "",
+        exp: "",
+      };
+    } else {
+      return {
+        phone: data.phoneNo || "",
+        expert: data.experiences || "",
+        jobType: data.jobType || "",
+        workinghrs: data.workingHours || "",
+        avaiability: data.availability || "",
+        exp: data.experience || "",
+      };
+    }
+  });
+  const mutation = useMutation(
+    (newProfile) => {
+      return makeRequest.put("users/profie", newProfile);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("profile");
+      },
+    }
+  );
+  const handleSubmit = async (e) => {
+    // Submit post request
+    e.preventDefault();
+    mutation.mutate(formValues);
+    setFormValues({
+      phone: "",
+      expert: "",
+      jobType: "",
+      workinghrs: "",
+      avaiability: "",
+      exp: "",
+    });
+    setEnableForm((f) => !f);
+  };
 
   const handleEnableChange = () => {
     setEnableForm((f) => !f);
@@ -33,22 +77,9 @@ const Navbar = () => {
       exp: "",
     });
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formValues);
-    setFormValues({
-      phone: "",
-      expert: "",
-      jobType: "",
-      workinghrs: "",
-      avaiability: "",
-      exp: "",
-    });
-    setEnableForm((f) => !f);
-  };
   const handleChange = (e) => {
     setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(formValues);
+    // console.log(formValues);
   };
   return (
     <nav className={styles.navbar}>

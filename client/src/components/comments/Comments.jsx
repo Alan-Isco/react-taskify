@@ -10,11 +10,11 @@ function Comments({ postId }) {
   const queryClient = useQueryClient();
   const [desc, setDesc] = useState("");
 
-  const { isLoading, error, data } = useQuery(["comments"], () =>
+  const { isLoading, error, data } = useQuery("comments", () =>
     makeRequest.get("comments?postId=" + postId).then((res) => res.data)
   );
 
-  console.log(data);
+  // console.log(data);
 
   const mutation = useMutation(
     (newComment) => {

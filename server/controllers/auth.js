@@ -26,11 +26,18 @@ export const register = (req, res) => {
       req.body.role,
     ];
     db.query(q, [values], (err, data) => {
-      if (err) return res.status(500).json({ err });
-      return res.status(201).json({
-        message: "User created successfully!",
-        data: data,
-      });
+      if (err) {
+        return res.status(500).json({ err });
+      } else {
+        const q = "INSERT INTO profile (userId) VALUE (?)";
+        db.query(q, [data.insertId], (err, data) => {
+          if (err) return res.status(500).json({ err });
+          return res.status(201).json({
+            message: "User created successfully! Profile created successfully",
+            data: data,
+          });
+        });
+      }
     });
   });
 };
