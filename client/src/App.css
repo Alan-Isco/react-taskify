@@ -22,6 +22,7 @@
 
 .app {
   /* Use the light theme by default */
+  margin: 0px;
   --text-color: var(--light-text-color);
   --bg: var(--light-bg);
   --logo: var(--light-logo);
@@ -31,6 +32,7 @@
 }
 
 .app.dark-theme {
+  margin: 0px;
   --text-color: var(--dark-text-color);
   --bg: var(--dark-bg);
   --logo: var(--dark-logo);

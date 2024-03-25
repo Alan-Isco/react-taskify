@@ -1,69 +1,12 @@
-import { useContext, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { makeRequest } from "../../axios";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
-import styles from "./clientDashboard.module.css";
-
-const ClientDashboard = () => {
+import styles from "./freelancerdashboard.module.css";
+const FreelancerDashboard = () => {
   const { currentUser } = useContext(AuthContext);
-  const queryClient = useQueryClient();
-  const [inputs, setInputs] = useState({
-    jobTitle: "",
-    jobDesc: "",
-    category: "",
-    duration: "",
-    exp: "",
-    budget: "",
-    location: "",
-    file: "",
-  });
-  const [file, setFile] = useState("");
-  const upload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await makeRequest.post("posts/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const mutation = useMutation(
-    (newPost) => {
-      return makeRequest.post("posts", newPost);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("posts");
-      },
-    }
-  );
-  const handleSubmit = async (e) => {
-    // Submit post request
-    e.preventDefault();
-    let imgUrl = "";
-    if (file) imgUrl = await upload();
-    const newInputs = { ...inputs, file: imgUrl };
-    mutation.mutate(newInputs);
-    setInputs({
-      jobTitle: "",
-      jobDesc: "",
-      category: "",
-      duration: "",
-      exp: "",
-      budget: "",
-      location: "",
-      file: "",
-    });
-  };
-
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    // console.log(inputs);
-  };
+  const navigate = useNavigate();
   return (
-    <div className={styles.clientDash}>
+    <div className={styles.freelancerDash}>
       <div class={styles.optionsContainer}>
         <div class={styles.options}>
           <div class={styles.groupContainer}>
@@ -252,193 +195,27 @@ const ClientDashboard = () => {
               <span class="icon">
                 <i class="fas fa-check-circle"></i>
               </span>
-              Welcome back {currentUser.firstName} Elevate Your needs...Elevate
-              your career
+              Welcome Back {currentUser.firstName}👋. Let's get you started!
             </h1>
-            <p>Where resilience meets expertise</p>
+            <p>Let's see what's new today...shall we?</p>
             <p class="description">
               Discover endless opportunities to grow and excel with our
               community of verified experts. From specialized Professionals to
               tailored mentorship, we have everything you need to succeed in the
               freelance world
             </p>
+
             <button
-              type="button"
-              class="btn btn-primary"
+              onClick={() => navigate("/users/freelancer/client-posts")}
               className={styles.createPost}
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
             >
-              Create Post
+              See Posts
             </button>
-            <div
-              class="modal fade"
-              id="exampleModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                      Create Post
-                    </h1>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div className={styles.left}>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="jobTitle">Job Title:</label>
-                          <input
-                            type="text"
-                            id="jobTitle"
-                            name="jobTitle"
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="jobDescription">
-                            Job Description:
-                          </label>
-                          <textarea
-                            id="jobDescription"
-                            name="jobDesc"
-                            onChange={handleChange}
-                            rows={10}
-                            required
-                          />
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="category">Choose the category:</label>
-                          <select
-                            name="category"
-                            onChange={handleChange}
-                            required
-                          >
-                            <option>choose...</option>
-                            <option value="Onine Work">Online Work</option>
-                            <option value="Manual Work">Manual Work</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className={styles.right}>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="exp">
-                            Choose the level of experience:
-                          </label>
-                          <select name="exp" onChange={handleChange}>
-                            <option value="exp">choose...</option>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Pro">Pro</option>
-                          </select>
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="duration">Enter the duration:</label>
-                          <input
-                            type="text"
-                            name="duration"
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="budget">Enter your Budget:</label>
-                          <input
-                            type="text"
-                            name="budget"
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="">Enter your Location:</label>
-                          <input
-                            type="text"
-                            name="location"
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className={styles.formGroup}>
-                          <label htmlFor="fie">Enter your file:</label>
-                          <input
-                            type="file"
-                            name="file"
-                            onChange={(e) => setFile(e.target.files[0])}
-                          />
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary py-2 px-5"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button
-                      onClick={handleSubmit}
-                      type="submit"
-                      class="btn btn-success py-2 px-5"
-                      data-bs-dismiss="modal"
-                    >
-                      Post
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <button class="continue-application" id="toggleAbout">
-              <div>
-                <div class="pencil"></div>
-                <div class="folder">
-                  <div class="top">
-                    <svg viewBox="0 0 24 27">
-                      <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
-                    </svg>
-                  </div>
-                  <div class="paper"></div>
-                </div>
-              </div>
-              Create a post
-            </button> */}
           </div>
+
           <div className={styles.right}>
             <div className={styles.cover}>
-              <img src="/assets/d.jpeg" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.section2}>
-        <div className={styles.categories}>
-          <div class={styles.gigs}>
-            <h4>Most popular Services</h4>
-          </div>
-          <div class={styles.choices}>
-            <div class={styles.choice} id="choice1">
-              Programming and Tech
-            </div>
-            <div class={styles.choice} id="choice2">
-              Digital marketing
-            </div>
-            <div class={styles.choice} id="choice3">
-              Manual labor services
-            </div>
-            <div class={styles.choice} id="choice4">
-              Academic Research
+              <img src="/assets/join.jpeg" alt="" />
             </div>
           </div>
         </div>
@@ -489,4 +266,4 @@ const ClientDashboard = () => {
   );
 };
 
-export default ClientDashboard;
+export default FreelancerDashboard;
