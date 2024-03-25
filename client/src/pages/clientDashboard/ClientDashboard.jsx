@@ -8,14 +8,14 @@ const ClientDashboard = () => {
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const [inputs, setInputs] = useState({
-    jobTitle: null,
-    jobDesc: null,
-    category: null,
-    duration: null,
-    exp: null,
-    budget: null,
-    location: null,
-    file: null,
+    jobTitle: "",
+    jobDesc: "",
+    category: "",
+    duration: "",
+    exp: "",
+    budget: "",
+    location: "",
+    file: "",
   });
   const [file, setFile] = useState("");
   const upload = async () => {
@@ -46,12 +46,21 @@ const ClientDashboard = () => {
     if (file) imgUrl = await upload();
     const newInputs = { ...inputs, file: imgUrl };
     mutation.mutate(newInputs);
-    setInputs(null);
+    setInputs({
+      jobTitle: "",
+      jobDesc: "",
+      category: "",
+      duration: "",
+      exp: "",
+      budget: "",
+      location: "",
+      file: "",
+    });
   };
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(inputs);
+    // console.log(inputs);
   };
   return (
     <div className={styles.clientDash}>

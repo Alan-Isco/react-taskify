@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
+import Profile from "./components/profile/Profile";
 import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
 import ClientDashboard from "./pages/clientDashboard/ClientDashboard";
@@ -72,6 +73,10 @@ function App() {
         {
           path: "/users/freelancer/client-posts",
           element: <Posts />,
+        },
+        {
+          path: "/users/profile",
+          element: <Profile />,
         },
       ],
     },

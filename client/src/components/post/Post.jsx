@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
@@ -7,7 +8,7 @@ function Post({ post }) {
   const [commentOpen, setCommentOpen] = useState(false);
 
   const liked = false;
-  console.log(post);
+  // console.log(post);
 
   return (
     <div className={styles.post}>
@@ -22,10 +23,12 @@ function Post({ post }) {
                 </span>
               </Link>
               {/* C:\New\client/public/uploads/1711296380260download.jpeg */}
-              <span className={styles.date}> 1 min ago</span>
+              <span className={styles.date}>
+                {moment(post.createdAt).fromNow()}
+              </span>
             </div>
           </div>
-          <i class="fa-solid fa-ellipsis"></i>
+          <i className="fa-solid fa-ellipsis"></i>
         </div>
         <div className={styles.content}>
           <p>{post.jobDesc}</p>
@@ -39,19 +42,15 @@ function Post({ post }) {
             Apply
           </div>
           <div
-            onClick={() => setCommentOpen(!commentOpen)}
+            onClick={() => setCommentOpen((c) => !commentOpen)}
             className={styles.item}
           >
-            <i class="fa-regular fa-message"></i>
-            12 Comments
-          </div>
-          <div className={styles.item}>
-            <i class="fa-solid fa-share"></i>
-            Share
+            <i className="fa-regular fa-message"></i>
+            12 Suggestions
           </div>
         </div>
 
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={post.id} key={post.id} />}
       </div>
     </div>
   );

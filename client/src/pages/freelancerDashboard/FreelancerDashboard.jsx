@@ -1,9 +1,10 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import styles from "./freelancerdashboard.module.css";
-
 const FreelancerDashboard = () => {
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <div className={styles.freelancerDash}>
       <div class={styles.optionsContainer}>
@@ -203,7 +204,13 @@ const FreelancerDashboard = () => {
               tailored mentorship, we have everything you need to succeed in the
               freelance world
             </p>
-            <button className={styles.createPost}>See Posts</button>
+
+            <button
+              onClick={() => navigate("/users/freelancer/client-posts")}
+              className={styles.createPost}
+            >
+              See Posts
+            </button>
           </div>
 
           <div className={styles.right}>
