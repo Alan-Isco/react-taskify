@@ -1,0 +1,265 @@
+.top {
+  background-image: url("/images/img.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .join {
+    width: 80%;
+    overflow: hidden;
+    margin: 0 auto;
+
+    .ex {
+      font-size: 2.5rem;
+      color: white;
+      font-family: sans-serif, "Times New Roman", Times, serif;
+      word-wrap: break-word;
+      animation: slideFromLeft 1.5s ease-in-out;
+    }
+  }
+
+  .arrowContainer {
+    text-align: center;
+    margin-top: 50px;
+
+    .arrow {
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-top: 25px solid white;
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
+      animation: bounce 1s infinite alternate;
+    }
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(10px);
+        /* Adjust the distance of bounce */
+      }
+    }
+  }
+}
+
+.reviewsSection {
+  background-color: #7c5c52;
+
+  .timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .timelineContainer {
+      padding: 10px 40px;
+      padding-top: 0;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+
+      .timelineContent {
+        padding: 5px;
+        background-color: var(--white-color);
+        position: relative;
+        border-radius: var(--border-radius-medium);
+
+        .reviewsBlock {
+          background-color: var(--section-bg-color);
+          border-radius: var(--border-radius-medium);
+          position: relative;
+          overflow: hidden;
+
+          .reviewBlockImageWrap {
+            background-image: url("../images/mid-section-waitress-wiping-espresso-machine-with-napkin-cafa-c.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+          }
+
+          .reviewsBlockInfo {
+            padding: 20px 30px;
+
+            p {
+              font-size: var(--btn-font-size);
+              font-style: italic;
+              color: rgba(255, 255, 255, 0.75);
+            }
+
+            .borderTop {
+              border-top-color: rgba(255, 255, 255, 0.35) !important;
+
+              i {
+                color: var(--white-color);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .timelineContainer::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      right: -12px;
+      background-color: var(--white-color);
+      border: 5px solid #7c5c52;
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timelineContainerLeft {
+      left: 0;
+    }
+
+    .timelineContainerLeft::before {
+      content: " ";
+      height: 0;
+      position: absolute;
+      top: 9px;
+      width: 0;
+      z-index: 1;
+      right: 25px;
+      border: medium solid white;
+      border-width: 20px 0 20px 20px;
+      border-color: transparent transparent transparent white;
+    }
+
+    .timelineContainerRight {
+      left: 50%;
+    }
+
+    .timelineContainerRight::before {
+      content: " ";
+      height: 0;
+      position: absolute;
+      top: 9px;
+      width: 0;
+      z-index: 1;
+      left: 25px;
+      border: medium solid white;
+      border-width: 20px 20px 20px 0;
+      border-color: transparent white transparent transparent;
+    }
+
+    .timelineContainerRight::after {
+      left: -13px;
+    }
+  }
+
+  .timeline::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    background-color: var(--white-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+  }
+
+  @media screen and (max-width: 991px) {
+    .timeline::after {
+      left: 31px;
+
+      .timelineContainer {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .timelineContainer::before {
+        left: 58px;
+        border: medium solid white;
+        border-width: 20px 20px 20px 0;
+        border-color: transparent white transparent transparent;
+
+        .timeline-container-right {
+          left: 0%;
+        }
+
+        .timelineContainerLeft::after,
+        .timelineContainerRight::after {
+          left: 6px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .menuBlockWrap,
+  .reviewsBlockImageIWrap,
+  .reviewsBlockInfo {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 38px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  .heroSection::after {
+    width: 200px;
+    height: 200px;
+  }
+
+  .bookingForm {
+    padding: 35px;
+  }
+
+  .opening-hours-list li {
+    font-size: 12px;
+  }
+
+  .reviewsBlockImageWrap {
+    flex-direction: column;
+  }
+
+  .reviewsBlockImage {
+    margin-bottom: 15px;
+  }
+
+  .timelineContainer {
+    padding-left: 55px;
+  }
+
+  .timelineContainer::before {
+    left: 44px;
+    border: medium solid white;
+    border-width: 15px 15px 15px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+  .timelineContainerLeft::before,
+  .timelineContainerRight::before {
+    top: 13px;
+  }
+}

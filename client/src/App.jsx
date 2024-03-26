@@ -13,6 +13,7 @@ import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
 import ClientDashboard from "./pages/clientDashboard/ClientDashboard";
 import FreelancerDashboard from "./pages/freelancerDashboard/FreelancerDashboard";
+import Home from "./pages/home/Home";
 import Posts from "./pages/posts/Posts";
 import Signup from "./pages/register/Signup";
 import Signin from "./pages/signin/Signin";
@@ -44,7 +45,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <FreelancerDashboard />,
+      element: <Home />,
     },
     {
       path: "/signup",

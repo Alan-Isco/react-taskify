@@ -5,7 +5,7 @@ import styles from "./category.module.css";
 
 const Categories = () => {
   const { isLoading, error, data } = useQuery("category", () =>
-    makeRequest.get("category").then((res) => res.data)
+    makeRequest.get("services/category").then((res) => res.data)
   );
   console.log(data);
   return (
@@ -28,7 +28,13 @@ const Categories = () => {
         </div>
       </div>
       <div className={styles.categoryCards}>
-        <CatCard />
+        {error
+          ? "Something went wrong. Please try again."
+          : isLoading
+          ? "Loading..."
+          : data.map((category) => (
+              <CatCard category={category} key={category.id} />
+            ))}
       </div>
     </div>
   );

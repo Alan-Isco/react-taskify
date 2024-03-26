@@ -1,6 +1,6 @@
 import styles from "./catCard.module.css";
 
-function CatCard() {
+function CatCard({ category }) {
   return (
     <div className={styles.catCard}>
       <div className={styles.image}>
@@ -10,8 +10,13 @@ function CatCard() {
         />
       </div>
       <div className={styles.name}>
-        <img src="https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-        <span>Fancis Moyale</span>
+        <img
+          src="https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt=""
+        />
+        <span>
+          {category.firstName} {category.lastName}
+        </span>
       </div>
       <div className={styles.desc}>
         <p>
@@ -20,9 +25,8 @@ function CatCard() {
         </p>
       </div>
       <div className={styles.rate}>
-        <span className="material-symbols-outlined">star</span>
+        <i className="fa-solid fa-star"></i>
         <span>4.5 (1k)</span>
-        
       </div>
     </div>
   );

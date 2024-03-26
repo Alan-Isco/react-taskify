@@ -23,6 +23,8 @@
     }
   }
   .categoryCards {
+    display: flex;
+    gap: 1.5rem;
     padding: 2rem;
   }
 }
