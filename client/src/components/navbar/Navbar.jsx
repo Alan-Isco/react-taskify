@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 // import Info from "../info/Info";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import styles from "./navbar.module.css";
@@ -12,7 +12,8 @@ const Navbar = () => {
 
   const [enableForm, setEnableForm] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const { isLoading, error, data } = useQuery(["profile"], () =>
+  const queryClient = useQueryClient();
+  const { isLoading, error, data } = useQuery("profile", () =>
     makeRequest.get("users/profile").then((res) => res.data)
   );
 
@@ -24,7 +25,7 @@ const Navbar = () => {
         expert: "",
         jobType: "",
         workinghrs: "",
-        avaiability: "",
+        availability: "",
         exp: "",
       };
     } else {
@@ -33,14 +34,14 @@ const Navbar = () => {
         expert: data.experiences || "",
         jobType: data.jobType || "",
         workinghrs: data.workingHours || "",
-        avaiability: data.availability || "",
+        availability: data.availability || "",
         exp: data.experience || "",
       };
     }
   });
   const mutation = useMutation(
     (newProfile) => {
-      return makeRequest.put("users/profie", newProfile);
+      return makeRequest.put("users/profile", newProfile);
     },
     {
       onSuccess: () => {
@@ -52,13 +53,26 @@ const Navbar = () => {
     // Submit post request
     e.preventDefault();
     mutation.mutate(formValues);
-    setFormValues({
-      phone: "",
-      expert: "",
-      jobType: "",
-      workinghrs: "",
-      avaiability: "",
-      exp: "",
+    setFormValues(() => {
+      if (!data || Object.keys(data).length === 0) {
+        return {
+          phone: "",
+          expert: "",
+          jobType: "",
+          workinghrs: "",
+          availability: "",
+          exp: "",
+        };
+      } else {
+        return {
+          phone: data.phoneNo || "",
+          expert: data.experiences || "",
+          jobType: data.jobType || "",
+          workinghrs: data.workingHours || "",
+          availability: data.availability || "",
+          exp: data.experience || "",
+        };
+      }
     });
     setEnableForm((f) => !f);
   };
@@ -68,13 +82,26 @@ const Navbar = () => {
   };
   const handleCancel = () => {
     setEnableForm((f) => !f);
-    setFormValues({
-      phone: "",
-      expert: "",
-      jobType: "",
-      workinghrs: "",
-      avaiability: "",
-      exp: "",
+    setFormValues(() => {
+      if (!data || Object.keys(data).length === 0) {
+        return {
+          phone: "",
+          expert: "",
+          jobType: "",
+          workinghrs: "",
+          availability: "",
+          exp: "",
+        };
+      } else {
+        return {
+          phone: data.phoneNo || "",
+          expert: data.experiences || "",
+          jobType: data.jobType || "",
+          workinghrs: data.workingHours || "",
+          availability: data.availability || "",
+          exp: data.experience || "",
+        };
+      }
     });
   };
   const handleChange = (e) => {
@@ -99,7 +126,7 @@ const Navbar = () => {
           onClick={toggle}
         ></i>
         <div
-          // class="btn btn-primary"
+          // className="btn btn-primary"
           className={styles.user}
           type="button"
           data-bs-toggle="offcanvas"
@@ -113,23 +140,23 @@ const Navbar = () => {
         </div>
 
         <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
+          className="offcanvas offcanvas-end"
+          tabIndex="-1"
           id="offcanvasExample"
           aria-labelledby="offcanvasExampleLabel"
         >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasExampleLabel">
               Your Profile
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             ></button>
           </div>
-          <div class="offcanvas-body">
+          <div className="offcanvas-body">
             <div className={styles.header}>
               <div className={styles.image}>
                 <img
@@ -143,19 +170,19 @@ const Navbar = () => {
                 </span>
               </div>
             </div>
-            <ul class="nav nav-tabs nav-fill">
+            <ul className="nav nav-tabs nav-fill">
               <a
                 style={{ color: "black" }}
-                class="nav-link active"
+                className="nav-link active"
                 aria-current="page"
                 href="#"
               >
                 Profile
               </a>
-              <a style={{ color: "black" }} class="nav-link" href="#">
+              <a style={{ color: "black" }} className="nav-link" href="#">
                 Account
               </a>
-              <a style={{ color: "black" }} class="nav-link" href="#">
+              <a style={{ color: "black" }} className="nav-link" href="#">
                 Logout
               </a>
             </ul>
@@ -168,7 +195,7 @@ const Navbar = () => {
                       <label htmlFor="phone">Phone</label>
                       <input
                         type="text"
-                        placeholder="Phone"
+                        placeholder={data?.phoneNo}
                         name="phone"
                         onChange={handleChange}
                         value={formValues.phone}
@@ -179,7 +206,7 @@ const Navbar = () => {
                       <label htmlFor="expert">Expert in</label>
                       <input
                         type="text"
-                        placeholder="Expert in"
+                        placeholder={data?.experiences}
                         name="expert"
                         value={formValues.expert}
                         onChange={handleChange}
@@ -190,7 +217,7 @@ const Navbar = () => {
                       <label htmlFor="jobType">Job type</label>
                       <input
                         type="text"
-                        placeholder="Job type"
+                        placeholder={data?.jobType}
                         name="jobType"
                         value={formValues.jobType}
                         onChange={handleChange}
@@ -203,7 +230,7 @@ const Navbar = () => {
                       <label htmlFor="workinghrs">Working Hours</label>
                       <input
                         type="text"
-                        placeholder="Working hours"
+                        placeholder={data?.workingHours}
                         name="workinghrs"
                         value={formValues.workinghrs}
                         onChange={handleChange}
@@ -214,10 +241,10 @@ const Navbar = () => {
                       <label htmlFor="availability">Availability</label>
                       <input
                         type="text"
-                        placeholder="Availability"
-                        name="avaiability"
+                        placeholder={data?.availability}
+                        name="availability"
                         onChange={handleChange}
-                        value={formValues.avaiability}
+                        value={formValues?.availability}
                         disabled={!enableForm}
                       />
                     </div>
@@ -225,7 +252,7 @@ const Navbar = () => {
                       <label htmlFor="exp">Experience</label>
                       <input
                         type="text"
-                        placeholder="Experience"
+                        placeholder={data?.experience}
                         name="exp"
                         onChange={handleChange}
                         value={formValues.exp}

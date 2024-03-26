@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { makeRequest } from "../../axios";
+import Categories from "../../components/category/Categories";
 import { AuthContext } from "../../context/authContext";
 import styles from "./clientDashboard.module.css";
 
@@ -64,180 +65,182 @@ const ClientDashboard = () => {
   };
   return (
     <div className={styles.clientDash}>
-      <div class={styles.optionsContainer}>
-        <div class={styles.options}>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="graphics-design">
+      <div className={styles.optionsContainer}>
+        <div className={styles.options}>
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="graphics-design">
               Graphics and design
             </a>
-            <div class={styles.dropdownContent} id="graphics-design">
+            <div className={styles.dropdownContent} id="graphics-design">
               {/* <!-- Subgroups for Graphics and Design --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-paint-brush"></i> Graphic Design
+                  <i className="fas fa-paint-brush"></i> Graphic Design
                 </a>
                 <a href="#">
-                  <i class="fas fa-palette"></i> Logo Design
+                  <i className="fas fa-palette"></i> Logo Design
                 </a>
                 <a href="#">
-                  <i class="fas fa-images"></i> Illustration
+                  <i className="fas fa-images"></i> Illustration
                 </a>
                 <a href="#">
-                  <i class="fas fa-desktop"></i> UI/UX Design
+                  <i className="fas fa-desktop"></i> UI/UX Design
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="programming-tech">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="programming-tech">
               Programming and tech
             </a>
-            <div class={styles.dropdownContent} id="programming-tech">
+            <div className={styles.dropdownContent} id="programming-tech">
               {/* <!-- Subgroups for Programming and Tech --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-laptop-code"></i> Web Development
+                  <i className="fas fa-laptop-code"></i> Web Development
                 </a>
                 <a href="#">
-                  <i class="fas fa-mobile-alt"></i> Mobile App Development
+                  <i className="fas fa-mobile-alt"></i> Mobile App Development
                 </a>
                 <a href="#">
-                  <i class="fas fa-code"></i> Software Engineering
+                  <i className="fas fa-code"></i> Software Engineering
                 </a>
                 <a href="#">
-                  <i class="fas fa-database"></i> Data Science
+                  <i className="fas fa-database"></i> Data Science
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="software-dev">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="software-dev">
               Software development
             </a>
-            <div class={styles.dropdownContent} id="software-dev">
+            <div className={styles.dropdownContent} id="software-dev">
               {/* <!-- Subgroups for Software Development --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-cogs"></i> Agile Development
+                  <i className="fas fa-cogs"></i> Agile Development
                 </a>
                 <a href="#">
-                  <i class="fas fa-tools"></i> DevOps
+                  <i className="fas fa-tools"></i> DevOps
                 </a>
                 <a href="#">
-                  <i class="fas fa-check-circle"></i> Quality Assurance
+                  <i className="fas fa-check-circle"></i> Quality Assurance
                 </a>
                 <a href="#">
-                  <i class="fas fa-tasks"></i> Project Management
+                  <i className="fas fa-tasks"></i> Project Management
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="manual-labour">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="manual-labour">
               Manual labour services
             </a>
-            <div class={styles.dropdownContent} id="manual-labour">
+            <div className={styles.dropdownContent} id="manual-labour">
               {/* <!-- Subgroups for Manual Labour Services --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-hammer"></i> Carpentry
+                  <i className="fas fa-hammer"></i> Carpentry
                 </a>
                 <a href="#">
-                  <i class="fas fa-wrench"></i> Plumbing
+                  <i className="fas fa-wrench"></i> Plumbing
                 </a>
                 <a href="#">
-                  <i class="fas fa-bolt"></i> Electrical
+                  <i className="fas fa-bolt"></i> Electrical
                 </a>
                 <a href="#">
-                  <i class="fas fa-paint-roller"></i> Painting
+                  <i className="fas fa-paint-roller"></i> Painting
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="business">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="business">
               Business
             </a>
-            <div class={styles.dropdownContent} id="business">
+            <div className={styles.dropdownContent} id="business">
               {/* <!-- Subgroups for Business --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-chart-line"></i> Entrepreneurship
+                  <i className="fas fa-chart-line"></i> Entrepreneurship
                 </a>
                 <a href="#">
-                  <i class="fas fa-money-bill-wave"></i> Finance
+                  <i className="fas fa-money-bill-wave"></i> Finance
                 </a>
                 <a href="#">
-                  <i class="fas fa-briefcase"></i> Marketing
+                  <i className="fas fa-briefcase"></i> Marketing
                 </a>
                 <a href="#">
-                  <i class="fas fa-users"></i> Management
+                  <i className="fas fa-users"></i> Management
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="digital-marketing">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="digital-marketing">
               Digital marketing
             </a>
-            <div class={styles.dropdownContent} id="digital-marketing">
+            <div className={styles.dropdownContent} id="digital-marketing">
               {/* <!-- Subgroups for Digital Marketing --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-search"></i> SEO
+                  <i className="fas fa-search"></i> SEO
                 </a>
                 <a href="#">
-                  <i class="fab fa-facebook-square"></i> Social Media Marketing
+                  <i className="fab fa-facebook-square"></i> Social Media
+                  Marketing
                 </a>
                 <a href="#">
-                  <i class="fas fa-file-alt"></i> Content Marketing
+                  <i className="fas fa-file-alt"></i> Content Marketing
                 </a>
                 <a href="#">
-                  <i class="fas fa-envelope"></i> Email Marketing
+                  <i className="fas fa-envelope"></i> Email Marketing
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="academic-writing">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="academic-writing">
               Academic writing
             </a>
-            <div class={styles.dropdownContent} id="academic-writing">
+            <div className={styles.dropdownContent} id="academic-writing">
               {/* <!-- Subgroups for Academic Writing --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-pencil-alt"></i> Essay Writing
+                  <i className="fas fa-pencil-alt"></i> Essay Writing
                 </a>
                 <a href="#">
-                  <i class="fas fa-book"></i> Research Papers
+                  <i className="fas fa-book"></i> Research Papers
                 </a>
                 <a href="#">
-                  <i class="fas fa-graduation-cap"></i> Thesis Writing
+                  <i className="fas fa-graduation-cap"></i> Thesis Writing
                 </a>
                 <a href="#">
-                  <i class="fas fa-edit"></i> Editing & Proofreading
+                  <i className="fas fa-edit"></i> Editing & Proofreading
                 </a>
               </div>
             </div>
           </div>
-          <div class={styles.groupContainer}>
-            <a href="#" class="groups" data-target="consulting">
+          <div className={styles.groupContainer}>
+            <a href="#" className="groups" data-target="consulting">
               Consulting
             </a>
-            <div class={styles.dropdownContent} id="consulting">
+            <div className={styles.dropdownContent} id="consulting">
               {/* <!-- Subgroups for Consulting --> */}
               <div className={styles.content}>
                 <a href="#">
-                  <i class="fas fa-briefcase"></i> Management Consulting
+                  <i className="fas fa-briefcase"></i> Management Consulting
                 </a>
                 <a href="#">
-                  <i class="fas fa-laptop-code"></i> IT Consulting
+                  <i className="fas fa-laptop-code"></i> IT Consulting
                 </a>
                 <a href="#">
-                  <i class="fas fa-money-bill-wave"></i> Financial Consulting
+                  <i className="fas fa-money-bill-wave"></i> Financial
+                  Consulting
                 </a>
                 <a href="#">
-                  <i class="fas fa-balance-scale"></i> Legal Consulting
+                  <i className="fas fa-balance-scale"></i> Legal Consulting
                 </a>
               </div>
             </div>
@@ -248,15 +251,15 @@ const ClientDashboard = () => {
       <div className={styles.section1}>
         <div className={styles.container}>
           <div className={styles.left}>
-            <h1 class="tagline">
-              <span class="icon">
-                <i class="fas fa-check-circle"></i>
+            <h1 className="tagline">
+              <span className="icon">
+                <i className="fas fa-check-circle"></i>
               </span>
               Welcome back {currentUser.firstName} Elevate Your needs...Elevate
               your career
             </h1>
             <p>Where resilience meets expertise</p>
-            <p class="description">
+            <p className="description">
               Discover endless opportunities to grow and excel with our
               community of verified experts. From specialized Professionals to
               tailored mentorship, we have everything you need to succeed in the
@@ -264,7 +267,7 @@ const ClientDashboard = () => {
             </p>
             <button
               type="button"
-              class="btn btn-primary"
+              // className={`btn btn-primary ${styles.createPost}}`}
               className={styles.createPost}
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
@@ -272,26 +275,26 @@ const ClientDashboard = () => {
               Create Post
             </button>
             <div
-              class="modal fade"
+              className="modal fade"
               id="exampleModal"
-              tabindex="-1"
+              tabIndex="-1"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h1 className="modal-title fs-5" id="exampleModalLabel">
                       Create Post
                     </h1>
                     <button
                       type="button"
-                      class="btn-close"
+                      className="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     <form>
                       <div className={styles.left}>
                         <div className={styles.formGroup}>
@@ -379,10 +382,10 @@ const ClientDashboard = () => {
                       </div>
                     </form>
                   </div>
-                  <div class="modal-footer">
+                  <div className="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary py-2 px-5"
+                      className="btn btn-secondary py-2 px-5"
                       data-bs-dismiss="modal"
                     >
                       Close
@@ -390,7 +393,7 @@ const ClientDashboard = () => {
                     <button
                       onClick={handleSubmit}
                       type="submit"
-                      class="btn btn-success py-2 px-5"
+                      className="btn btn-success py-2 px-5"
                       data-bs-dismiss="modal"
                     >
                       Post
@@ -399,16 +402,16 @@ const ClientDashboard = () => {
                 </div>
               </div>
             </div>
-            {/* <button class="continue-application" id="toggleAbout">
+            {/* <button className="continue-application" id="toggleAbout">
               <div>
-                <div class="pencil"></div>
-                <div class="folder">
-                  <div class="top">
+                <div className="pencil"></div>
+                <div className="folder">
+                  <div className="top">
                     <svg viewBox="0 0 24 27">
                       <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
                     </svg>
                   </div>
-                  <div class="paper"></div>
+                  <div className="paper"></div>
                 </div>
               </div>
               Create a post
@@ -423,30 +426,31 @@ const ClientDashboard = () => {
       </div>
 
       <div className={styles.section2}>
-        <div className={styles.categories}>
-          <div class={styles.gigs}>
+        <Categories />
+        {/* <div className={styles.categories}>
+          <div className={styles.gigs}>
             <h4>Most popular Services</h4>
           </div>
-          <div class={styles.choices}>
-            <div class={styles.choice} id="choice1">
+          <div className={styles.choices}>
+            <div className={styles.choice} id="choice1">
               Programming and Tech
             </div>
-            <div class={styles.choice} id="choice2">
+            <div className={styles.choice} id="choice2">
               Digital marketing
             </div>
-            <div class={styles.choice} id="choice3">
+            <div className={styles.choice} id="choice3">
               Manual labor services
             </div>
-            <div class={styles.choice} id="choice4">
+            <div className={styles.choice} id="choice4">
               Academic Research
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <footer>
-        <div class={styles.footerContainer}>
-          <div class={styles.footerLinks}>
+        <div className={styles.footerContainer}>
+          <div className={styles.footerLinks}>
             <div className={styles.links}>
               <h3>Quick Links</h3>
 
@@ -458,30 +462,30 @@ const ClientDashboard = () => {
 
               <a href="#">Contact Us</a>
             </div>
-            <div class={styles.contact}>
+            <div className={styles.contact}>
               <h3>Contact Us</h3>
               <p>Email: info@taskify.com</p>
               <p>Phone: +254707154666</p>
             </div>
-            <div class={styles.socials}>
+            <div className={styles.socials}>
               <h3>Follow Us</h3>
 
               <a href="#">
-                <i class="fab fa-facebook"></i>
+                <i className="fab fa-facebook"></i>
                 Taskify Kenya
               </a>
               <a href="#">
-                <i class="fab fa-twitter"></i>
+                <i className="fab fa-twitter"></i>
                 @taskify_Ke
               </a>
               <a href="#">
-                <i class="fab fa-instagram"></i>
+                <i className="fab fa-instagram"></i>
                 @taskify_Ke
               </a>
             </div>
           </div>
         </div>
-        <div class={styles.bottom}>
+        <div className={styles.bottom}>
           <p>&copy; 2024 Taskify. All rights reserved.</p>
         </div>
       </footer>

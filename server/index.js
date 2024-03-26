@@ -8,6 +8,7 @@ import commentsRoutes from "./routes/comments.js";
 import postsRoutes from "./routes/posts.js";
 import reviewsRoutes from "./routes/reviews.js";
 import userRoutes from "./routes/users.js";
+
 // INITIALIZATION
 const app = express();
 
@@ -50,6 +51,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/reviews", reviewsRoutes);
 app.use("/api/users/profile", userRoutes);
+// app.use("/api/services/category", categoryRoutes);
 
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {

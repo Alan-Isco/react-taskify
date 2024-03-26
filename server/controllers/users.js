@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import moment from "moment/moment.js";
 import { db } from "../connect.js";
 
 // FETCHING PROFILE DATA
@@ -13,7 +12,7 @@ export const getProfile = async (req, res) => {
     const q = "SELECT * FROM profile WHERE userId = ?";
     db.query(q, [userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
-      return res.status(200).json(data);
+      return res.status(200).json(data[0]);
     });
   });
 };
@@ -26,22 +25,20 @@ export const updateProfile = async (req, res) => {
     if (err) return res.status(401).json("Token not valid. Please login.");
 
     const q =
-      "UPDATE  (`clientid`, `jobTitle`, `jobDesc`, `category`, `duration`, `experience`, `budget`, `location`, `file`, `createdAt`) VALUE (?)";
+      "UPDATE profile SET `phoneNo`=?, `experiences`=?, `jobType`=?, `workingHours`=?, `availability`=?,`experience`=? WHERE userId=?";
 
     const values = [
-      userInfo.id,
-      req.body.jobTitle,
-      req.body.jobDesc,
-      req.body.category,
-      req.body.duration,
+      req.body.phone,
+      req.body.expert,
+      req.body.jobType,
+      req.body.workinghrs,
+      req.body.availability,
       req.body.exp,
-      req.body.budget,
-      req.body.location,
-      req.body.file,
-      moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      userInfo.id,
+      // moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
     ];
 
-    db.query(q, [values], (err, data) => {
+    db.query(q, values, (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json("Post has been created");
     });
